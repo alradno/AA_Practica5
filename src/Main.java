@@ -23,16 +23,6 @@ public class Main {
             System.out.println();
         }
         System.out.println();
-
-        n = comb(5, 2);
-        System.out.println("Comb: "+n);
-        n = comb2(5, 2);
-        System.out.println("Comb2: "+n);
-        n=combTab(5,2);
-        System.out.println("CombTAB: "+n);
-
-        n = fT(1, 3);
-        System.out.println("Github: "+n);
     }
 
 
@@ -138,7 +128,6 @@ public class Main {
     //15 31 64 132 272 560 1152 2368 4864
     //15 31 64 132 272 560 1152 2368 4864 9984
     //15 31 64 132 272 560 1152 2368 4864 9984 20480
-    //Formula: 2^(y+1)-1
 
     //tabla[0][0] = 15
     //tabla[0][1] = 31
@@ -151,77 +140,10 @@ public class Main {
     //tabla[0][8] = 4864
     //tabla[0][9] = 9984
     //tabla[0][10] = 20480
+
     //tabla [1][0] = 16
     //tabla [1][1] = 33
     //tabla [1][2] = 68
     //tabla [1][3] = 140
-    //Formula: 2^(y+1)-1 + 2^y
 
-
-
-    public static int combTab (int m, int n) {
-        int[][] combs = new int[n+1][m-n+1];
-        for (int i=1; i<=n; i++)
-            combs[i][0] = 1;
-        for (int j=1; j<=m-n; j++) {
-            combs[0][j] = 1;
-            for (int i=1; i<=n; i++)
-                combs[i][j] = combs[i-1][j] + combs[i][j-1];
-        }
-        return combs[n][m-n];
-    }
-
-    public static int comb (int m, int n) {
-        if (n==0 || m==n)
-            return 1;
-        else
-            return comb(m-1,n) + comb(m-1,n-1);
-    }
-    public static int comb2(int m, int n) {
-        int[][] combs = new int[n + 1][m - n + 1];
-        for (int i = 0; i <= n; i++)
-            for (int j = 0; j <= m - n; j++)
-                combs[i][j] = 0;
-        combMem(m, n, combs);
-        return combs[n][m - n];
-    }
-
-    private static void combMem(int m, int n, int[][] combs) {
-        if (combs[n][m - n] == 0)
-            if (n == 0 || m == n)
-                combs[n][m - n] = 1;
-            else {
-                combMem(m - 1, n, combs);
-                combMem(m - 1, n - 1, combs);
-                combs[n][m - n] = combs[n][m - n - 1] + combs[n - 1][m - n];
-            }
-    }
-
-    public static int fT (int x, int y) {
-        int[][] tabla=new int[x+1][y+1];
-        for(int i=0;i<x+1;i++) {
-            for(int j=0;j<y+1;j++) {
-                tabla[i][j]=-1;
-            }
-        }
-        frecT(x, y, tabla);
-        return tabla[x][y];
-    }
-
-    public static void frecT (int x, int y, int[][] tabla) {
-        if(tabla[x][y]==-1) {
-            if (x==0)
-                tabla[x][y]=y;
-            else if (y==0)
-                tabla[x][y]=x;
-            else {
-                frecT(x,y-1, tabla);
-                frecT(x-1,y, tabla);
-                frecT(x-1,y-1, tabla);
-                tabla[x][y]=tabla[x][y-1]+ tabla[x-1][y] +tabla[x-1][y-1] ;
-            }
-        }
-
-
-    }
 }
